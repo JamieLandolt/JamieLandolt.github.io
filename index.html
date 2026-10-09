@@ -60,10 +60,77 @@
     }
   }
 
+  /* Lagoon: #F2E3BC #086375 #B6465F #322214 #8B95C9 */
+  html[data-theme="lagoon"] {
+    --bg: #F2E3BC;
+    --fg: #322214;
+    --muted: color-mix(in srgb, #322214 70%, #F2E3BC);
+    --line: color-mix(in srgb, #322214 16%, #F2E3BC);
+    --card: color-mix(in srgb, #ffffff 38%, #F2E3BC);
+    --accent: #086375;
+    --accent-soft: color-mix(in srgb, #086375 14%, #F2E3BC);
+  }
+  @media (prefers-color-scheme: dark) {
+    html[data-theme="lagoon"] {
+      --bg: #322214;
+      --fg: #F2E3BC;
+      --muted: color-mix(in srgb, #F2E3BC 68%, #322214);
+      --line: color-mix(in srgb, #F2E3BC 15%, #322214);
+      --card: color-mix(in srgb, #F2E3BC 6%, #322214);
+      --accent: #8B95C9;
+      --accent-soft: color-mix(in srgb, #8B95C9 20%, #322214);
+    }
+  }
+
+  /* Orchard: #A88FAC #C1292E #D7B377 #322214 #567568 */
+  html[data-theme="orchard"] {
+    --bg: color-mix(in srgb, #D7B377 28%, #ffffff);
+    --fg: #322214;
+    --muted: color-mix(in srgb, #322214 70%, #ffffff);
+    --line: color-mix(in srgb, #D7B377 55%, #ffffff);
+    --card: color-mix(in srgb, #D7B377 12%, #ffffff);
+    --accent: #B02329;
+    --accent-soft: color-mix(in srgb, #C1292E 12%, #ffffff);
+  }
+  @media (prefers-color-scheme: dark) {
+    html[data-theme="orchard"] {
+      --bg: #322214;
+      --fg: color-mix(in srgb, #D7B377 55%, #ffffff);
+      --muted: color-mix(in srgb, #D7B377 70%, #322214);
+      --line: color-mix(in srgb, #D7B377 18%, #322214);
+      --card: color-mix(in srgb, #D7B377 7%, #322214);
+      --accent: #A88FAC;
+      --accent-soft: color-mix(in srgb, #A88FAC 20%, #322214);
+    }
+  }
+
+  /* Dusk: #4C5B61 #CA6680 #D7B377 #BBC2E2 #481D24 */
+  html[data-theme="dusk"] {
+    --bg: color-mix(in srgb, #BBC2E2 30%, #ffffff);
+    --fg: #481D24;
+    --muted: #4C5B61;
+    --line: color-mix(in srgb, #BBC2E2 70%, #ffffff);
+    --card: color-mix(in srgb, #BBC2E2 10%, #ffffff);
+    --accent: #A8445F;
+    --accent-soft: color-mix(in srgb, #CA6680 14%, #ffffff);
+  }
+  @media (prefers-color-scheme: dark) {
+    html[data-theme="dusk"] {
+      --bg: #481D24;
+      --fg: #BBC2E2;
+      --muted: color-mix(in srgb, #BBC2E2 68%, #481D24);
+      --line: color-mix(in srgb, #BBC2E2 16%, #481D24);
+      --card: color-mix(in srgb, #BBC2E2 6%, #481D24);
+      --accent: #D7B377;
+      --accent-soft: color-mix(in srgb, #D7B377 18%, #481D24);
+    }
+  }
+
   .themes { position: fixed; right: 16px; bottom: 16px; display: flex; gap: 8px; padding: 8px 10px; background: var(--card); border: 1px solid var(--line); border-radius: 99px; z-index: 20; box-shadow: 0 4px 18px rgba(0,0,0,.12); }
-  .themes button { width: 22px; height: 22px; padding: 0; border-radius: 50%; border: 2px solid transparent; cursor: pointer; background: var(--sw); outline: 1px solid var(--line); }
-  .themes button[aria-pressed="true"] { border-color: var(--fg); }
-  .themes button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .themes button { width: 22px; height: 22px; padding: 0; border: 0; border-radius: 50%; cursor: pointer; background: var(--sw); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fg) 20%, transparent); outline: none; -webkit-tap-highlight-color: transparent; transition: box-shadow .15s; }
+  .themes button:hover { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fg) 20%, transparent), 0 0 0 3px color-mix(in srgb, var(--fg) 12%, transparent); }
+  .themes button[aria-pressed="true"] { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fg) 20%, transparent), 0 0 0 3px color-mix(in srgb, var(--fg) 22%, transparent); }
+  .themes button:focus-visible { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fg) 20%, transparent), 0 0 0 3px var(--accent); }
 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -155,7 +222,7 @@
   <header class="hero wrap">
     <div class="hello">Hi, I'm</div>
     <h1>James Landolt.<br><em>I build things for the web.</em></h1>
-    <p class="lede">Software engineering student at UQ in Brisbane. I'm into systems programming, machine learning and performance-minded software, and I like shipping small, well-made things.</p>
+    <p class="lede">Software engineering student at UQ in Brisbane. I'm into machine learning, optimisation and I like building interesting projects.</p>
     <div class="cta">
       <a class="btn primary" href="#work">See my work</a>
       <a class="btn" href="#contact">Get in touch</a>
@@ -282,6 +349,9 @@
   // Add new themes here and in the CSS above.
   const THEMES = [
     { id: 'rosewood', name: 'Rosewood', swatch: 'linear-gradient(135deg,#F2E3BC 50%,#3E1929 50%)' },
+    { id: 'lagoon',    name: 'Lagoon',    swatch: 'linear-gradient(135deg,#F2E3BC 50%,#086375 50%)' },
+    { id: 'orchard',   name: 'Orchard',   swatch: 'linear-gradient(135deg,#D7B377 50%,#C1292E 50%)' },
+    { id: 'dusk',      name: 'Dusk',      swatch: 'linear-gradient(135deg,#BBC2E2 50%,#481D24 50%)' },
     { id: 'classic',  name: 'Classic',  swatch: 'linear-gradient(135deg,#fafaf7 50%,#3b5bfd 50%)' },
   ];
   const root = document.documentElement, box = document.querySelector('.themes');
