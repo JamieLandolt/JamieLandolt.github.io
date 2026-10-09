@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>James Landolt — jland.me</title>
+<meta name="description" content="James Landolt — software engineering student at UQ, Brisbane. Projects, experience and contact.">
+<meta property="og:title" content="James Landolt">
+<meta property="og:description" content="Software developer. Projects, experience and contact.">
+<meta property="og:url" content="https://jland.me">
+<script>
+  try { document.documentElement.dataset.theme = localStorage.getItem('theme') || 'rosewood'; }
+  catch (e) { document.documentElement.dataset.theme = 'rosewood'; }
+</script>
+<style>
+  :root {
+    --bg: #fafaf7;
+    --fg: #17171a;
+    --muted: #6b6b73;
+    --line: #e4e4de;
+    --card: #ffffff;
+    --accent: #3b5bfd;
+    --accent-soft: #e8ecff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e0e11;
+      --fg: #ececf1;
+      --muted: #9a9aa5;
+      --line: #25252c;
+      --card: #16161b;
+      --accent: #8da0ff;
+      --accent-soft: #1d2140;
+    }
+  }
+  /* ---- Themes ----
+     Each theme sets the same tokens. Light values apply by default;
+     the dark block applies when the system prefers dark.
+     To add a theme: copy a pair below, rename it, and add it to THEMES in the script. */
+
+  /* Rosewood: #F2E3BC #3E1929 #BD6B73 #7C9299 #C17767 */
+  html[data-theme="rosewood"] {
+    --bg: #F2E3BC;
+    --fg: #3E1929;
+    --muted: color-mix(in srgb, #3E1929 72%, #F2E3BC);
+    --line: color-mix(in srgb, #3E1929 16%, #F2E3BC);
+    --card: color-mix(in srgb, #ffffff 38%, #F2E3BC);
+    --accent: #A04E5A;
+    --accent-soft: color-mix(in srgb, #BD6B73 20%, #F2E3BC);
+  }
+  @media (prefers-color-scheme: dark) {
+    html[data-theme="rosewood"] {
+      --bg: #3E1929;
+      --fg: #F2E3BC;
+      --muted: color-mix(in srgb, #F2E3BC 68%, #3E1929);
+      --line: color-mix(in srgb, #F2E3BC 15%, #3E1929);
+      --card: color-mix(in srgb, #F2E3BC 6%, #3E1929);
+      --accent: color-mix(in srgb, #BD6B73 55%, #F2E3BC);
+      --accent-soft: color-mix(in srgb, #BD6B73 24%, #3E1929);
+    }
+  }
+
+  .themes { position: fixed; right: 16px; bottom: 16px; display: flex; gap: 8px; padding: 8px 10px; background: var(--card); border: 1px solid var(--line); border-radius: 99px; z-index: 20; box-shadow: 0 4px 18px rgba(0,0,0,.12); }
+  .themes button { width: 22px; height: 22px; padding: 0; border-radius: 50%; border: 2px solid transparent; cursor: pointer; background: var(--sw); outline: 1px solid var(--line); }
+  .themes button[aria-pressed="true"] { border-color: var(--fg); }
+  .themes button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 17px/1.6 ui-sans-serif, -apple-system, "Inter", "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  nav { position: sticky; top: 0; backdrop-filter: blur(12px); background: color-mix(in srgb, var(--bg) 80%, transparent); border-bottom: 1px solid var(--line); z-index: 10; }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+  .logo { font-weight: 700; text-decoration: none; letter-spacing: -0.02em; }
+  .logo span { color: var(--accent); }
+  nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; font-size: 15px; }
+  nav ul a { text-decoration: none; color: var(--muted); }
+  nav ul a:hover { color: var(--fg); }
+
+  .hero { padding: 110px 0 80px; }
+  .hello { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 14px; }
+  h1 { font-size: clamp(40px, 8vw, 72px); line-height: 1.04; letter-spacing: -0.035em; margin: 14px 0 22px; }
+  h1 em { font-style: normal; color: var(--muted); }
+  .lede { font-size: 20px; color: var(--muted); max-width: 580px; margin: 0 0 32px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 11px 20px; border-radius: 10px; text-decoration: none; font-size: 15px; font-weight: 600; border: 1px solid var(--line); }
+  .btn.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .btn:hover { transform: translateY(-1px); }
+
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 14px; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 32px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; transition: transform .15s, border-color .15s; }
+  a.card:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .card h3 { margin: 0; font-size: 19px; letter-spacing: -0.01em; }
+  .card h3 small { font: 13px ui-monospace, Menlo, monospace; color: var(--muted); font-weight: 400; margin-left: 6px; }
+  .sub { color: var(--muted); margin: -16px 0 24px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; flex: 1; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font: 12px ui-monospace, Menlo, monospace; background: var(--accent-soft); color: var(--accent); padding: 3px 9px; border-radius: 99px; }
+
+  .about { display: grid; grid-template-columns: 1.6fr 1fr; gap: 40px; }
+  .about p { margin: 0 0 16px; }
+  .skills { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
+  .skills li { border: 1px solid var(--line); background: var(--card); padding: 5px 12px; border-radius: 8px; font-size: 14px; }
+
+  .timeline { list-style: none; padding: 0; margin: 0; }
+  .timeline li { display: grid; grid-template-columns: 140px 1fr; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .timeline li:last-child { border: 0; }
+  .when { color: var(--muted); font: 14px ui-monospace, Menlo, monospace; padding-top: 3px; }
+  .timeline b { display: block; }
+  .timeline span { color: var(--muted); font-size: 15px; }
+
+  .contact p { font-size: 22px; max-width: 560px; margin: 0 0 24px; letter-spacing: -0.01em; }
+  .links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .links a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .links a:hover { text-decoration: underline; }
+
+  footer { padding: 36px 0 60px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+
+  @media (max-width: 680px) {
+    nav ul { gap: 14px; }
+    .about { grid-template-columns: 1fr; gap: 24px; }
+    .timeline li { grid-template-columns: 1fr; gap: 2px; }
+    .hero { padding: 70px 0 50px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">jland<span>.me</span></a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#vibe">Vibe coded</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+  <header class="hero wrap">
+    <div class="hello">Hi, I'm</div>
+    <h1>James Landolt.<br><em>I build things for the web.</em></h1>
+    <p class="lede">Software engineering student at UQ in Brisbane. I'm into systems programming, machine learning and performance-minded software, and I like shipping small, well-made things.</p>
+    <div class="cta">
+      <a class="btn primary" href="#work">See my work</a>
+      <a class="btn" href="#contact">Get in touch</a>
+    </div>
+  </header>
+
+  <section id="work">
+    <div class="wrap">
+      <h2>Selected work</h2>
+      <div class="grid">
+                <a class="card" href="https://marketplace.visualstudio.com/items?itemName=Tether.tethercollab">
+          <h3>Tether <small>2026</small></h3>
+          <p>Live collaborative coding extension for VS Code. Work together in a shared workspace with teammates' cursors and open files visible. Built as a team project.</p>
+          <div class="tags"><span class="tag">TypeScript</span><span class="tag">VS Code</span><span class="tag">Realtime</span></div>
+        </a>
+<a class="card" href="https://github.com/JamieLandolt/gradient">
+          <h3>Gradient <small>2026</small></h3>
+          <p>Full-stack GPA and course tracker with AI study and degree planning. Built in three weeks at Dalian Neusoft and awarded Best AI Project.</p>
+          <div class="tags"><span class="tag">React</span><span class="tag">FastAPI</span><span class="tag">Supabase</span></div>
+        </a>
+        <a class="card" href="https://github.com/JamieLandolt/FourierDraw">
+          <h3>FourierDraw <small>Aug 2025</small></h3>
+          <p>Turns user-drawn images into Fourier series vector animations. Built with a team of 4 at the UQCS Hackathon.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Manim</span></div>
+        </a>
+        <a class="card" href="https://github.com/JamieLandolt/Chess">
+          <h3>Chess <small>2025</small></h3>
+          <p>Python chess implementation with a FastHTML web interface and a developing evaluation engine.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">FastHTML</span></div>
+        </a>
+        <a class="card" href="https://github.com/JamieLandolt/AsciiArt">
+          <h3>AsciiArt <small>2026</small></h3>
+          <p>Command-line tool that renders images as ASCII art in your terminal. Built with Clare Johnston.</p>
+          <div class="tags"><span class="tag">C++</span><span class="tag">CLI</span></div>
+        </a>
+        <a class="card" href="https://github.com/JamieLandolt/Leetcode">
+          <h3>LeetCode <small>Ongoing</small></h3>
+          <p>107 solved problems in Python and C++.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">C++</span><span class="tag">Algorithms</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="vibe">
+    <div class="wrap">
+      <h2>Vibe coded</h2>
+      <p class="sub">Built fast with AI as my pair programmer. Shipped, live and used.</p>
+      <div class="grid">
+        <a class="card" href="https://wildcard.jland.me">
+          <h3>Wildcard <small>2026</small></h3>
+          <p>The party game that gets the room talking. Eight modes, no download, one room code.</p>
+          <div class="tags"><span class="tag">Web app</span><span class="tag">Multiplayer</span></div>
+        </a>
+        <a class="card" href="https://github.com/JamieLandolt/streakly">
+          <h3>Streakly <small>2026</small></h3>
+          <p>Habit tracker built around a GitHub-style streak grid, with daily or weekly targets and drag-to-reorder.</p>
+          <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Firebase</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about">
+      <div>
+        <h2>About</h2>
+        <p>I'm a software engineering student at the University of Queensland in Brisbane, graduating in 2027 with a Bachelor of Engineering (Honours). My experience spans enterprise web development, Android apps with computer vision models, and low-level programming.</p>
+        <p>I work as a software engineer at <strong>2iB</strong>, tutor Python at UQ, and compete in competitive programming and algorithmic trading. I was predominantly self-taught before university.</p>
+      </div>
+      <div>
+        <h2>Tools</h2>
+        <ul class="skills">
+          <li>Python</li><li>C</li><li>Kotlin</li><li>Java</li><li>Haskell</li><li>Lua</li><li>JavaScript</li><li>HTML/CSS</li><li>FastAPI</li><li>Flask</li><li>Jetpack Compose</li><li>Git</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <h2>Experience</h2>
+      <ul class="timeline">
+        <li><div class="when">Jun — Jul 2026</div><div><b>DNUI AI Startup Project · Dalian, China</b><span>Invited to collaborate with international students. Built Gradient and won Best AI Project with the top score at the final presentation.</span></div></li>
+        <li><div class="when">Jan 2026</div><div><b>Software Engineer Intern · Enable Startup Co.</b><span>Real-time movement detection with a YOLO computer vision model, integrated into an Android app (Jetpack Compose, TTS feedback, Room).</span></div></li>
+        <li><div class="when">May 2025 — Now</div><div><b>Undergraduate Software Engineer · 2iB</b><span>Enterprise software and automation tools in JavaScript, HTML, CSS and 2iB's own language, SPL.</span></div></li>
+        <li><div class="when">Feb 2025 — Now</div><div><b>Tutor, ENGG1001 · University of Queensland</b><span>Teaching introductory Python through applied classes, discussion boards and one-on-one sessions.</span></div></li>
+        <li><div class="when">2024 — 2027</div><div><b>B. Engineering (Honours), Software Engineering · UQ</b><span>Dean's Commendation every semester, GPA 6.875.</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="competitions">
+    <div class="wrap">
+      <h2>Competitions</h2>
+      <ul class="timeline">
+        <li><div class="when">2025</div><div><b>AllUni</b><span>1st place in participating division. AUS &amp; NZ's premier competitive programming competition.</span></div></li>
+        <li><div class="when">2025</div><div><b>IMC Prosperity</b><span>51st in Australia, top 6% globally. Algorithmic and manual trading.</span></div></li>
+        <li><div class="when">2025</div><div><b>UQ Fintech AlgoJam</b><span>Two 4th place finishes.</span></div></li>
+        <li><div class="when">2025</div><div><b>UQCS CodeJam</b><span>10th and 14th overall.</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <p>Have a project in mind, or just want to say hi? My inbox is open.</p>
+      <div class="links">
+        <a href="mailto:jamie@2ib.net.au">jamie@2ib.net.au</a>
+        <a href="https://github.com/JamieLandolt">GitHub</a>
+        <a href="https://linkedin.com/in/james-landolt-323360289">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© <script>document.write(new Date().getFullYear())</script> James Landolt · jland.me</div>
+</footer>
+
+<div class="themes" role="group" aria-label="Colour theme"></div>
+<script>
+  // Add new themes here and in the CSS above.
+  const THEMES = [
+    { id: 'rosewood', name: 'Rosewood', swatch: 'linear-gradient(135deg,#F2E3BC 50%,#3E1929 50%)' },
+    { id: 'classic',  name: 'Classic',  swatch: 'linear-gradient(135deg,#fafaf7 50%,#3b5bfd 50%)' },
+  ];
+  const root = document.documentElement, box = document.querySelector('.themes');
+  function apply(id) {
+    root.dataset.theme = id;
+    try { localStorage.setItem('theme', id); } catch (e) {}
+    box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.id === id));
+  }
+  THEMES.forEach(t => {
+    const b = document.createElement('button');
+    b.dataset.id = t.id; b.title = t.name; b.setAttribute('aria-label', t.name + ' theme');
+    b.style.setProperty('--sw', t.swatch);
+    b.onclick = () => apply(t.id);
+    box.appendChild(b);
+  });
+  apply(THEMES.some(t => t.id === root.dataset.theme) ? root.dataset.theme : THEMES[0].id);
+</script>
+</body>
+</html>
